@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+//Bootstrap
+import 'bootstrap/dist/css/bootstrap.css';
+//Bootstrap-icons
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import App from './App';
+
 import reportWebVitals from './reportWebVitals';
+import AppTest from './AppTests';
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+  {/* <AppTest></AppTest> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
