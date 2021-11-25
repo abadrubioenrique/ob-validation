@@ -39,7 +39,7 @@ const UserLogin = () => {
         e.preventDefault();
 
         login({username:datos.form.username,
-            password:datos.form.password}).catch(error=>{
+            password:datos.form.password}).then(setRequestError('')).catch(error=>{
                 if(error.response.status ===401){
                     setRequestError("Usuario o contraseña incorrectos");
                 }else{

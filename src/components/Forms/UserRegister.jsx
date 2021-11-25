@@ -4,19 +4,32 @@ import axios from "axios";
 import '../Styles/userRegister.scss';
 const UserRegister = () => {
     const [formulario, setFormulario] = useState(false);
+    const [requestError, setRequestError] = useState('');
      
     const ApiUrl="https://obvalid4.herokuapp.com/api/auth/register";
 
 
     const peticionPost=(datos)=>{
-        axios.post(ApiUrl,
-         {
-           name:datos.name,
-           surname:datos.surname,
-           email:datos.email,
-           password:datos.password
-         }
-        )}
+
+            axios.post(ApiUrl,
+                {
+                  name:datos.name,
+                  surname:datos.surname,
+                  email:datos.email,
+                  password:datos.password
+                }
+               ).then(
+                setRequestError('')
+               ).catch(error=>{
+                setFormulario(false);
+                if(error.response.status ===400){
+                    setRequestError("Ese e-mail ya está en uso");
+                }else{
+                    setRequestError(error.message);
+                }
+                });   
+        }
+    
 
     return (
 
@@ -58,8 +71,10 @@ const UserRegister = () => {
 
             onSubmit={(values, {resetForm}) => {
             resetForm();
+            
             peticionPost(values);
-            setTimeout(() => setFormulario(false), 3000);
+            setFormulario(true);
+            setTimeout(() => setFormulario(false), 2700);
         }}
     >
         {( {errors} ) => (
@@ -106,9 +121,11 @@ const UserRegister = () => {
                     />
                     <ErrorMessage name="password" component={() => (<div className="error">{errors.password}</div>)} />
                 </div>
-
+                
                 <button type="submit">Enviar</button>
-                {formulario && <p className="success">Formulario enviado con exito!</p>}
+                {(requestError===('') && formulario ===true) ? (<p className="success">Formulario enviado!</p>):(<p className="error">{requestError}</p>) }
+
+
             </Form>
             </>
         )}
