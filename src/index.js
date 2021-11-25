@@ -9,10 +9,12 @@ import App from './App';
 
 import reportWebVitals from './reportWebVitals';
 import AppTest from './AppTests';
+import AppRoutes from './AppRoutes';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <AppRoutes></AppRoutes>
   {/* <AppTest></AppTest> */}
   </React.StrictMode>,
   document.getElementById('root')
