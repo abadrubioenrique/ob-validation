@@ -1,13 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import axios from "axios";
 import '../Styles/userRegister.scss';
 import { login, register, logout } from '../../utils/Auth/JWTAuth';
 
+
+
+
+
 const UserLogin = () => {
+    const [formulario, setFormulario] = useState(false);
     const [token, setToken] = useState('');
-    const [requestError, setRequestError] = useState('');
-    const [isLogging, setIsLogging] = useState(false);
-    
+    const [requestError,setRequestError] = useState();
     const [datos, setDatos] = useState(
         {
             data:[],
@@ -22,7 +25,31 @@ const UserLogin = () => {
             console.log("Token = " + token);
         }
         
-    },[token])      
+    },[token])
+    const ApiUrl="https://obvalid4.herokuapp.com/api/auth/login";
+
+
+    const peticionPost=()=>{
+        axios.post(ApiUrl,
+                {
+                    username:datos.form.username,
+                    password:datos.form.password
+                })
+                .then(response=>{
+                    if(response.status === 200 && response.data.token){
+                        let jwt = response.data.token;
+
+                        localStorage.setItem("access_token", jwt);
+                        setToken(jwt);
+            
+                    }
+                }).catch(error=>{
+                    setRequestError(error.message);
+                    })         
+
+        }
+       
+   
 
        
     const handleChange=async e=>{
@@ -37,16 +64,7 @@ const UserLogin = () => {
 
     const handleSubmit=async e=>{
         e.preventDefault();
-
-        login({username:datos.form.username,
-            password:datos.form.password}).catch(error=>{
-                if(error.response.status ===401){
-                    setRequestError("Usuario o contraseña incorrectos");
-                }else{
-                    setRequestError(error.message);
-                }
-            });
-        setIsLogging(true);
+        peticionPost();
 
         }
 
@@ -63,10 +81,8 @@ const UserLogin = () => {
             <label htmlFor="username">Contraseña</label>
             <input className="form-control" type="password" name="password" id="password" required onChange={handleChange} value={form?form.password: ''}/>
             <button type="submit">Enviar</button>
-            {(requestError===('') && isLogging ===true) ? (<p className="success">Login Correcto</p>):(<p className="error">{requestError}</p>) }
-            <button type="button" className="btn btn-danger" onClick={logout}>Logout</button>
+            <p>{requestError}</p>
             </form>
-            
             </>
         )}
 

@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import axios from "axios";
 import '../Styles/userRegister.scss';
 const UserRegister = () => {
     const [formulario, setFormulario] = useState(false);
-    const [datos, setDatos] = useState();    
+     
     const ApiUrl="https://obvalid4.herokuapp.com/api/auth/register";
 
-    const peticionPost=async()=>{
-        await axios.post(ApiUrl,
+
+    const peticionPost=(datos)=>{
+        axios.post(ApiUrl,
          {
            name:datos.name,
            surname:datos.surname,
@@ -16,7 +17,7 @@ const UserRegister = () => {
            password:datos.password
          }
         )}
-        
+
     return (
 
         <Formik
@@ -54,15 +55,10 @@ const UserRegister = () => {
 
             return errors;
         }}
-        
+
             onSubmit={(values, {resetForm}) => {
             resetForm();
-            console.log('Formulario enviado');
-            alert(JSON.stringify(values, null, 2));
-            setDatos(values);
-            console.log("Gracias por registrarte" + datos.name);
-            setFormulario(true);
-            peticionPost();
+            peticionPost(values);
             setTimeout(() => setFormulario(false), 3000);
         }}
     >
@@ -111,8 +107,6 @@ const UserRegister = () => {
                     <ErrorMessage name="password" component={() => (<div className="error">{errors.password}</div>)} />
                 </div>
 
-              
-                
                 <button type="submit">Enviar</button>
                 {formulario && <p className="success">Formulario enviado con exito!</p>}
             </Form>
