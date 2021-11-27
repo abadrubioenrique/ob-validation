@@ -1,13 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import '../Styles/userRegister.scss';
-import { login, register, logout } from '../../utils/Auth/JWTAuth';
+import { login, logout } from '../../utils/Auth/JWTAuth';
+import { types } from '../../types/types';
+import { AuthContext } from '../../utils/Auth/authContext';
 
 const UserLogin = () => {
     const [token, setToken] = useState('');
     const [requestError, setRequestError] = useState('');
     const [isLogging, setIsLogging] = useState(false);
-    
+    //NAVIGATE
+    const navigate = useNavigate();
+    const {dispatch} = useContext(AuthContext);
+
+
     const [datos, setDatos] = useState(
         {
             data:[],
@@ -50,6 +57,18 @@ const UserLogin = () => {
 
         }
 
+        const handleLogin = () => {
+
+            const action = {
+                type : types.login,
+                payload:{name : datos.form.username}
+            }
+            dispatch(action);
+            navigate('/register', {
+                replace: true
+            });
+        }
+
         const {form}=datos;
 
     return (
@@ -62,7 +81,7 @@ const UserLogin = () => {
 
             <label htmlFor="username">Contraseña</label>
             <input className="form-control" type="password" name="password" id="password" required onChange={handleChange} value={form?form.password: ''}/>
-            <button type="submit">Enviar</button>
+            <button type="submit" onClick={ handleLogin }>Enviar</button>
             {(requestError===('') && isLogging ===true) ? (<p className="success">Login Correcto</p>):(<p className="error">{requestError}</p>) }
             <button type="button" className="btn btn-danger" onClick={logout}>Logout</button>
             </form>

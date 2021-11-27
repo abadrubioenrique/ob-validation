@@ -5,17 +5,15 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 //Bootstrap-icons
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import App from './App';
-
 import reportWebVitals from './reportWebVitals';
-import AppTest from './AppTests';
-import AppRoutes from './AppRoutes';
+import { Validationapp } from './ValidationApp';
+
+
+
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <AppRoutes></AppRoutes>
-  {/* <AppTest></AppTest> */}
+  <Validationapp/>
   </React.StrictMode>,
   document.getElementById('root')
 );
