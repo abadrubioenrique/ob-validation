@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from 'react';
 import { AuthContext } from './utils/Auth/authContext';
 import { authReducer } from './utils/Auth/authReducer';
-import { ValidationRoutes } from './ValidationRoutes';
+import { ValidationRoutes } from './routers/ValidationRoutes';
 
 const init = () =>{
     return JSON.parse(localStorage.getItem('user')) || {logged:false};   

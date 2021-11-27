@@ -64,7 +64,7 @@ const UserLogin = () => {
                 payload:{name : datos.form.username}
             }
             dispatch(action);
-            navigate('/register', {
+            navigate('/validation', {
                 replace: true
             });
         }
