@@ -29,7 +29,6 @@ export const ValidationRoutes = ()=> {
   return (
     <BrowserRouter>
         <Routes>
-          <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<Notfoundpage />} />
           <Route path="/login" element={
             <PublicRoute>
@@ -37,8 +36,12 @@ export const ValidationRoutes = ()=> {
             </PublicRoute>  
           } />
           
-
-
+          <Route path="/register" element={
+            <PublicRoute>
+              <RegisterPage />
+            </PublicRoute>  
+          } />
+          
           <Route path="/validation" element={
             <PrivateRoute>
               <ValidationPage></ValidationPage>
