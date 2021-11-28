@@ -14,7 +14,7 @@ import { getToken } from '../../utils/helpers/auth-helpers';
     const [cargandoUsuario, setCargandoUsuario] = useState(true);
     const [logged, setLogged]= useState(false);
     const [validado, setValidado] = useState();
-
+    const token = getToken();
     useEffect(() => {
         async function cargarUsuario(){
             if(!getToken()){
@@ -49,7 +49,7 @@ import { getToken } from '../../utils/helpers/auth-helpers';
         <p className="center">Realice una fotografía de cada cara del dni</p>
         <h1>Front</h1>
         <FilePond
-        name="file"
+        name="frontal"
         required={true}
         allowMultiple={false}
         maxFiles={1}      
@@ -59,7 +59,7 @@ import { getToken } from '../../utils/helpers/auth-helpers';
             process: (fieldName, file, metadata, load, error, progress, abort) => {
 
                 const formData = new FormData()
-                formData.append('file', file, file.name)
+                formData.append('multipartFile', file, file.name)
 
                 // aborting the request
                 const CancelToken = axios.CancelToken
@@ -68,6 +68,10 @@ import { getToken } from '../../utils/helpers/auth-helpers';
                     method: 'POST',
                     url: API_URL + "/api/cloudinary/uploadfront",
                     data: formData,
+                    headers: {
+                        'content-type': 'multipart/form-data',
+                        'Authorization': `Basic ${token}` 
+                    },
                     //cancelToken: source.token,
                     onUploadProgress: (e) => {
                         // updating progress indicator
