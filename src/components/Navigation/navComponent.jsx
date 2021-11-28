@@ -13,12 +13,13 @@ const Navcomponent = () => {
         {
             replace:true
         });
+        localStorage.removeItem('access_token');
     }
     return (
     <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-primary bg-gradient">
             <div className="container-fluid">
-                <Link className="navbar-brand mb-0 h1 text-light" to ="/validation">ValidationProject</Link>
+                <Link className="navbar-brand mb-0 h1 text-light" to ="/">ValidationProject</Link>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
                         <NavLink  className={ ({ isActive }) => 'nav-item nav-link text-dark' + (isActive ? 'active text-light ' : '') } to="/login">

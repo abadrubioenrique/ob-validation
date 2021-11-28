@@ -12,11 +12,10 @@ export const Validationapp = () => {
     const [user,dispatch] = useReducer(authReducer, {}, init);
 
     useEffect(() => {
+        
         if(!user) return;
         localStorage.setItem('user', JSON.stringify(user));
-
-        
-       
+        localStorage.getItem('access_token');
     }, [user]);
 
     return (

@@ -7,7 +7,7 @@ export const PublicRoute = ({children}) => {
 
     return user.logged
     ?
-    <Navigate to = "/validation"/>
+    <Navigate to = "/"/>
     :
     children
 }

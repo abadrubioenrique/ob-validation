@@ -42,7 +42,7 @@ export const ValidationRoutes = ()=> {
             </PublicRoute>  
           } />
           
-          <Route path="/validation" element={
+          <Route path="/" element={
             <PrivateRoute>
               <ValidationPage></ValidationPage>
             </PrivateRoute>

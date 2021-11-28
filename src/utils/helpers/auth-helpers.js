@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const TOKEN_KEY = 'USER_TOKEN';
+const TOKEN_KEY = 'access_token';
 
 export function setToken(token){
     localStorage.setItem(TOKEN_KEY,token);
@@ -19,7 +19,7 @@ export function initAxiosInterceptors(){
         const token = getToken();
 
         if(token){
-            config.headers.Authorization = {token};
+            config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     });
