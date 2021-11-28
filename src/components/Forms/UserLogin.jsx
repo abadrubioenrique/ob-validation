@@ -2,19 +2,15 @@ import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import '../Styles/userRegister.scss';
+import { setToken } from '../../utils/helpers/auth-helpers';
 import { login } from '../../utils/Auth/JWTAuth';
-import { types } from '../../types/types';
-import { AuthContext } from '../../utils/Auth/authContext';
 
 const UserLogin = () => {
-    const [token, setToken] = useState('');
     const [requestError, setRequestError] = useState('');
     const [isLogging, setIsLogging] = useState(false);
-    //NAVIGATE
     const navigate = useNavigate();
-    const {dispatch} = useContext(AuthContext);
-
-
+    const API_URL = 'https://obvalid4.herokuapp.com';
+   
     const [datos, setDatos] = useState(
         {
             data:[],
@@ -36,27 +32,20 @@ const UserLogin = () => {
         }
 
     const handleSubmit=async e=>{
-        e.preventDefault();
-
-        login({username:datos.form.username,
-            password:datos.form.password}).then(setRequestError('')).catch(error=>{
-                if(error.response.status ===401){
-                    setRequestError("Usuario o contraseña incorrectos");
-                }else{
-                    setRequestError(error.message);
-                }
-            });
-        setIsLogging(true);
         
-        const action = {
-            type : types.login,
-            payload:{name : datos.form.username,
-            }
-        }
-        dispatch(action);
-        navigate('/', {
-            replace: true
-        });
+        e.preventDefault();
+        setRequestError('');
+        login({username:datos.form.username,
+            password:datos.form.password}).catch(error=>{
+                    setRequestError("Hubo un error, compruebe su email y contraseña");
+                    console.log("Error: " + error.message);
+            })
+            setIsLogging(true);
+            setTimeout(function(){window.location.reload(true);}, 3000);
+            
+
+
+        
         }
 
         const {form}=datos;

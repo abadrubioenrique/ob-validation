@@ -2,7 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react';
 import axios from "axios";
 import '../Styles/userRegister.scss';
 import { login, register, logout } from '../../utils/Auth/JWTAuth';
-
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +11,7 @@ const UserLogin = () => {
     const [formulario, setFormulario] = useState(false);
     const [token, setToken] = useState('');
     const [requestError,setRequestError] = useState();
+    const navigate = useNavigate();
     const [datos, setDatos] = useState(
         {
             data:[],
@@ -45,7 +46,7 @@ const UserLogin = () => {
                     }
                 }).catch(error=>{
                     setRequestError(error.message);
-                    })         
+                    })       
 
         }
        
@@ -61,10 +62,11 @@ const UserLogin = () => {
             }
         });
         }
-
+      
     const handleSubmit=async e=>{
         e.preventDefault();
         peticionPost();
+       
 
         }
 
@@ -80,7 +82,7 @@ const UserLogin = () => {
 
             <label htmlFor="username">Contraseña</label>
             <input className="form-control" type="password" name="password" id="password" required onChange={handleChange} value={form?form.password: ''}/>
-            <button type="submit">Enviar</button>
+            <button type="submit" >Enviar</button>
             <p>{requestError}</p>
             </form>
             </>

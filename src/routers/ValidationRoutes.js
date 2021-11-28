@@ -10,41 +10,35 @@ import { login, logout } from '../utils/Auth/JWTAuth';
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import LoginPage from '../components/Pages/Register/LoginPage';
 import RegisterPage from '../components/Pages/Register/RegisterPage';
-import { PrivateRoute } from './PrivateRoute';
-import { PublicRoute } from './PublicRoute';
 import ValidationPage from '../components/Pages/UploadFiles/ValidationPage';
 
 
 export const ValidationRoutes = ()=> {
-  
-  const [storedToken, setToken] = useLocalStorage('access_token',localStorage.getItem('access_token'));
-
-  useEffect(() => {
-    setToken(localStorage.getItem('access_token'));
-  }, [setToken]);
- 
-  console.log(storedToken);
-
+  function PrivateRoute({ children }) {
+    const [logged, setLogged] = useState(true);
+   
+    return  logged ? children : <Navigate to="/login" />;
+  }
   
   return (
     <BrowserRouter>
         <Routes>
           <Route path="*" element={<Notfoundpage />} />
           <Route path="/login" element={
-            <PublicRoute>
+
               <LoginPage/>
-            </PublicRoute>  
+ 
           } />
           
           <Route path="/register" element={
-            <PublicRoute>
+
               <RegisterPage />
-            </PublicRoute>  
+ 
           } />
           
           <Route path="/" element={
             <PrivateRoute>
-              <ValidationPage></ValidationPage>
+              <ValidationPage/>
             </PrivateRoute>
          } />
         </Routes>
