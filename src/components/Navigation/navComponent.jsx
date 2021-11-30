@@ -24,16 +24,14 @@ const Navcomponent = () => {
         async function cargarUsuario(){
             if(!getToken()){
                 setCargandoUsuario(false);
-                console.log("No hay token")
                 return;
             }
             try{
                 const {data: usuario} = await axios.get(API_URL + '/api/whoami');
                 setUsuario(usuario);
-                console.log(JSON.stringify(usuario));
                 setCargandoUsuario(false);
             }catch(error){
-                console.log(error);
+                
             }
     }
         cargarUsuario();

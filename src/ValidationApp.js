@@ -21,7 +21,6 @@ export function Validationapp(){
         async function cargarUsuario(){
             if(!getToken()){
                 setCargandoUsuario(false);
-                console.log("No hay token")
                 return;
             }
             try{
@@ -30,7 +29,6 @@ export function Validationapp(){
                 setLogged(true);
                 setCargandoUsuario(false);
             }catch(error){
-                console.log(error);
             }
     }
         cargarUsuario();

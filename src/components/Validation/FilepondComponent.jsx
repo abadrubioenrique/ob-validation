@@ -7,30 +7,25 @@ import { getToken } from '../../utils/helpers/auth-helpers';
 import 'filepond/dist/filepond.min.css';
 import './validation.scss'
 
- export const FilepondComponent = (props) => {
-    const [files, setFiles] = useState([]);
-    
+ export const FilepondComponent = (props) => { 
     const API_URL = 'https://obvalid4.herokuapp.com';
     const [usuario,setUsuario]= useState(null);
     const [cargandoUsuario, setCargandoUsuario] = useState(true);
     const [logged, setLogged]= useState(false);
-    const [validado, setValidado] = useState();
     const token = getToken();
     useEffect(() => {
         async function cargarUsuario(){
             if(!getToken()){
                 setCargandoUsuario(false);
-                console.log("No hay token")
                 return;
             }
             try{
                 const {data: usuario} = await axios.get(API_URL + '/api/whoami');
                 setUsuario(usuario);
-                console.log(JSON.stringify(usuario));
                 setLogged(true);
                 setCargandoUsuario(false);
             }catch(error){
-                console.log(error);
+                
             }
     }
         cargarUsuario();
@@ -41,13 +36,22 @@ import './validation.scss'
       <h1>Validación del Usuario</h1>
 
       
-        {usuario!=null && usuario.validated ? (<h3 className="center">Ha sido Validado</h3>): (
+        {usuario!=null && usuario.validated ? 
+        
+        (
+            <div>
             
-            
+            <h3 className="center"><i class="bi bi-check-circle-fill validado"/>Ha sido Validado</h3>
+            </div>
+            )
+        : 
+        ( 
         <div>
         
-        <h3 className="center">No ha sido validado</h3>
-        <p className="center">Realice una fotografía de cada cara del dni</p>
+        <div>
+            <h3 className="center"><i class="bi bi-x-circle-fill no-validado"/>No ha sido Validado</h3>
+            </div>
+        <p className="center">Por favor suba una fotografía de cada cara del dni</p>
         <h1>DNI - Cara frontal</h1>
         <div className="subida">  
         <FilePond
@@ -55,6 +59,8 @@ import './validation.scss'
         required={true}
         allowMultiple={false}
         maxFiles={1}      
+        maxTotalFileSize={1048576}
+        labelMaxTotalFileSize={"Total file size should be lesser than 1MB."}
         server={
         {
             timeout: 99999,
