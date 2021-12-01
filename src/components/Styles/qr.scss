@@ -1,0 +1,10 @@
+.qr-page{
+    margin: 3rem;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    .qr-wrapper{
+        margin: 2rem;
+    }
+}

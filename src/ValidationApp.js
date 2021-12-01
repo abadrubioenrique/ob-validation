@@ -1,66 +1,46 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { setToken, deleteToken, getToken, initAxiosInterceptors } from './utils/helpers/auth-helpers';
-
-
-import { BrowserRouter as Router, Route, Routes, Navigate, BrowserRouter } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Route, Routes, Navigate, HashRouter  } from 'react-router-dom';
 import Notfoundpage from './components/Pages/404/NotFoundPage';
 import LoginPage from './components/Pages/Register/LoginPage';
 import RegisterPage from './components/Pages/Register/RegisterPage';
 import ValidationPage from './components/Pages/UploadFiles/ValidationPage';
+import NavComponent from './components/Navigation/NavComponent';
+import QrPage from './components/Pages/qr/QrPage';
+import { PrivateOutlet } from './routers/PrivateOutlet';
+/** Slices imports */
+import { getUserInfo } from './store/slices/user';
+import { clearMessage } from './store/slices/message';
 
-//Ejecuta axiosinterceptors para checkear si hay un token
-initAxiosInterceptors();
 export function Validationapp(){
-    const API_URL = 'https://obvalid4.herokuapp.com';
-    const [usuario,setUsuario]= useState(null);
-    const [cargandoUsuario, setCargandoUsuario] = useState(true);
-    const [logged, setLogged]= useState(false);
+
+  const { isLoggedIn, authToken : token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
     useEffect(() => {
-        async function cargarUsuario(){
-            if(!getToken()){
-                setCargandoUsuario(false);
-                return;
-            }
-            try{
-                const {data: usuario} = await axios.get(API_URL + '/api/whoami');
-                setUsuario(usuario);
-                setLogged(true);
-                setCargandoUsuario(false);
-            }catch(error){
-            }
+      if(isLoggedIn){
+      dispatch(clearMessage());
+      dispatch(getUserInfo(token))
     }
-        cargarUsuario();
        
-    }, []);
+    }, [dispatch, isLoggedIn, token]);
+    
 
-    function PrivateRoute({ children }) {
-        return  logged ? children : <Navigate to="/login" />;
-    }
+    console.log(isLoggedIn)
       return (
-        <BrowserRouter>
+        <HashRouter>
+            <NavComponent isLoggedIn={isLoggedIn}/>
             <Routes>
               <Route path="*" element={<Notfoundpage />} />
-              <Route path="/login" element={
-    
-                  <LoginPage/>
-     
-              } />
-              
-              <Route path="/register" element={
-    
-                  <RegisterPage />
-     
-              } />
-              
-              <Route path="/" element={
-                <PrivateRoute>
-                  <ValidationPage/>
-                </PrivateRoute>
-             } />
+              <Route path="/login" element={<LoginPage/>} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/validation" element={<PrivateOutlet isLogged={isLoggedIn} />}>
+                <Route path="pass" element={<QrPage />} />
+                <Route path="files" element={<ValidationPage />} />
+              </Route>
+              <Route path="/" element={<Navigate replace to="/login" />} />
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
       );
 }
 

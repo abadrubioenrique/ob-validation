@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+// Imports de Redux
+import { Provider } from 'react-redux';
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
 //Bootstrap-icons
@@ -8,13 +10,16 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import reportWebVitals from './reportWebVitals';
 import { Validationapp } from './ValidationApp';
 
-
+// Import funtion to create store
+import store from './store/config/configureStore';
 
 
 ReactDOM.render(
-  <React.StrictMode>
-  <Validationapp/>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+    <Validationapp/>
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
