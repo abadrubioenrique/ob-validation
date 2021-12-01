@@ -11,7 +11,6 @@ import './validation.scss'
     const API_URL = 'https://obvalid4.herokuapp.com';
     const [usuario,setUsuario]= useState(null);
     const [cargandoUsuario, setCargandoUsuario] = useState(true);
-    const [logged, setLogged]= useState(false);
     const token = getToken();
     useEffect(() => {
         async function cargarUsuario(){
@@ -22,7 +21,6 @@ import './validation.scss'
             try{
                 const {data: usuario} = await axios.get(API_URL + '/api/whoami');
                 setUsuario(usuario);
-                setLogged(true);
                 setCargandoUsuario(false);
             }catch(error){
                 
@@ -30,13 +28,13 @@ import './validation.scss'
     }
         cargarUsuario();
        
-    }, []);
+    }, );
    return (
      <div >
       <h1>Validación del Usuario</h1>
 
       
-        {usuario!=null && usuario.validated ? 
+        {(usuario!=null) && (usuario.validated) && (cargandoUsuario===false) ? 
         
         (
             <div>
