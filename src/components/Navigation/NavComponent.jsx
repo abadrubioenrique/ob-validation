@@ -23,7 +23,7 @@ const NavComponent = ({isLoggedIn}) => {
     {userInfo != null ?
         <nav className="navbar navbar-expand-lg navbar-light bg-primary bg-gradient">
             <div className="container-fluid ">
-                <Link className="navbar-brand mb-0 h1 text-light validation" to ="/validation">
+                <Link className="navbar-brand mb-0 h1 text-light">
                 <div className="background-layer">
                     <h2 className="logo validation">
                     Check
