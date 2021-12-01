@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes, Navigate, HashRouter  } from 'react-router-dom';
+import {  Route, Routes, Navigate, HashRouter  } from 'react-router-dom';
 import Notfoundpage from './components/Pages/404/NotFoundPage';
 import LoginPage from './components/Pages/Register/LoginPage';
 import RegisterPage from './components/Pages/Register/RegisterPage';
 import ValidationPage from './components/Pages/UploadFiles/ValidationPage';
-import NavComponent from './components/Navigation/NavComponent';
+import Navcomponent from './components/Navigation/Navcomponent';
 import QrPage from './components/Pages/qr/QrPage';
 import { PrivateOutlet } from './routers/PrivateOutlet';
 /** Slices imports */
@@ -29,7 +29,7 @@ export function Validationapp(){
     console.log(isLoggedIn)
       return (
         <HashRouter>
-            <NavComponent isLoggedIn={isLoggedIn}/>
+            <Navcomponent isLoggedIn={isLoggedIn}/>
             <Routes>
               <Route path="*" element={<Notfoundpage />} />
               <Route path="/login" element={<LoginPage/>} />
