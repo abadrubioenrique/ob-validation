@@ -20,7 +20,7 @@ const NavComponent = ({isLoggedIn}) => {
 
     return ( 
 <div>
-    {(usuario!=null) && cargandoUsuario===false ?
+    {(userInfo!=null) ?
         <nav className="navbar navbar-expand-lg navbar-light bg-primary bg-gradient">
             <div className="container-fluid ">
                 <Link className="navbar-brand mb-0 h1 text-light validation" to ="/validation">
@@ -35,7 +35,7 @@ const NavComponent = ({isLoggedIn}) => {
                     <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex flex-row-reverse">
                     <div class="navbar-nav">
                 <span className="nav-link username">
-                   Bienvenido {usuario.name + " " + usuario.surname}
+                   Bienvenido {userInfo.name + " " + userInfo.surname}
                 </span>
                     <button 
                         className="nav-link btn logout" 
