@@ -1,6 +1,10 @@
+@import "../Styles/variables";
 .logout{
+    margin-right: 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
     &:hover{
-        color: red!important;
+        color: $red!important;
     }
 }
 
@@ -9,3 +13,26 @@
         color: greenyellow!important;
     }
 }
+
+.bg-primary{
+    background-color: $blue!important;
+}
+
+.username{
+    color: $dark-blue!important;
+    font-size: 0.9rem;
+    
+
+    margin-right:5px;
+}
+
+.logo {
+    margin: 0 auto;
+    font-size: 1.2rem;
+    color: $white;
+    span {
+        color: $dark-blue;
+    }
+}
+
+
