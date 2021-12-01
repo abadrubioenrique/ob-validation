@@ -1,4 +1,25 @@
-       <div>
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { logout } from '../../store/slices/auth';
+import { removeUserInfo } from '../../store/slices/user';
+
+import './navigation.scss';
+const NavComponent = ({isLoggedIn}) => {
+    console.log(isLoggedIn);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    let userInfo = null;
+    userInfo = useSelector((state) => state.user.userInfo);
+    
+    const handleLogout = () => {
+      dispatch(logout());
+      dispatch(removeUserInfo());
+      navigate('/');
+    };
+
+
+    return (       
+<div>
             {userInfo != null ?
                 <nav className="navbar navbar-expand-lg navbar-light bg-primary bg-gradient">
                 <div className="container-fluid">
