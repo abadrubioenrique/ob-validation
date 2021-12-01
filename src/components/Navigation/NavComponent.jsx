@@ -47,3 +47,7 @@
             }
 
         </div>
+    );
+}
+
+export default NavComponent;
