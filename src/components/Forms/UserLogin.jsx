@@ -1,15 +1,13 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import React, {useEffect, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import '../Styles/userRegister.scss';
-import { setToken } from '../../utils/helpers/auth-helpers';
 import { login } from '../../utils/Auth/JWTAuth';
 
 const UserLogin = () => {
     const [requestError, setRequestError] = useState('');
     const [isLogging, setIsLogging] = useState(false);
-    const navigate = useNavigate();
-    const API_URL = 'https://obvalid4.herokuapp.com';
+    const dispatch = useDispatch();
    
     const [datos, setDatos] = useState(
         {
@@ -35,17 +33,16 @@ const UserLogin = () => {
         
         e.preventDefault();
         setRequestError('');
-        login({username:datos.form.username,
-            password:datos.form.password}).catch(error=>{
-                    setRequestError("Hubo un error, compruebe su email y contraseña");
-                    console.log("Error: " + error.message);
-            })
-            setIsLogging(true);
-            setTimeout(function(){window.location.reload(true);}, 3000);
-            
-
-
-        
+        dispatch(login({ username, password }))
+        .unwrap()
+        .then(() => {
+          props.history.push('/profile');
+          window.location.reload();
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+            setIsLogging(true);      
         }
 
         const {form}=datos;
@@ -61,7 +58,9 @@ const UserLogin = () => {
             <label htmlFor="username">Contraseña</label>
             <input className="form-control" type="password" name="password" id="password" required onChange={handleChange} value={form?form.password: ''}/>
             <button type="submit">Enviar</button>
-            {(requestError===('') && isLogging ===true) ? (<p className="success">Login Correcto</p>):(<p className="error">{requestError}</p>) }
+            {(requestError===('') && isLogging ===true) ? 
+                (<p className="success">Login Correcto. Para seguir el proceso de validación dirigase a <Link to="/validation/pass">Validación</Link></p>)
+                :(<p className="error">{requestError}</p>) }
             </form>
             
             </>
