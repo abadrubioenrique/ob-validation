@@ -4,7 +4,7 @@ import { logout } from '../../store/slices/auth';
 import { removeUserInfo } from '../../store/slices/user';
 
 import './navigation.scss';
-const Navcomponent = ({isLoggedIn}) => {
+const NavComponent = ({isLoggedIn}) => {
     console.log(isLoggedIn);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -60,4 +60,4 @@ const Navcomponent = ({isLoggedIn}) => {
     );
 }
 
-export default Navcomponent;
+export default NavComponent;
