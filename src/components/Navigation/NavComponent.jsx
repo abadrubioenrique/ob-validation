@@ -61,8 +61,6 @@ const NavComponent = ({isLoggedIn}) => {
                             Register</NavLink>
                         <NavLink className={({ isActive }) => 'nav-item nav-link text-dark' + (isActive ? 'active text-light ' : '')} to="/login">
                             Login</NavLink>
-
-
                     </div>
                 </nav>
             }
