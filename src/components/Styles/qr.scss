@@ -1,3 +1,4 @@
+@import "../Styles/variables";
 .qr-page{
     margin: 3rem;
     display: flex;
@@ -8,3 +9,17 @@
         margin: 2rem;
     }
 }
+.upload{
+    color: $blue;
+    text-align: center;
+    font-size: 6rem;
+    margin: 0 auto;
+    &:hover {
+        color: $dark-blue;
+    }
+    p{
+        font-size: 1.4rem;
+    }
+    
+}
+
