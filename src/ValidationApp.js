@@ -13,7 +13,6 @@ import { getUserInfo } from './store/slices/user';
 import { clearMessage } from './store/slices/message';
 
 export function Validationapp(){
-
   const { isLoggedIn, authToken : token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -26,7 +25,7 @@ export function Validationapp(){
     }, [dispatch, isLoggedIn, token]);
     
 
-    console.log(isLoggedIn)
+    console.log(`/key/${token}`)
       return (
         <HashRouter>
             <NavComponent isLoggedIn={isLoggedIn}/>
@@ -36,8 +35,8 @@ export function Validationapp(){
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/validation" element={<PrivateOutlet isLogged={isLoggedIn} />}>
                 <Route path="pass" element={<QrPage />} />
-                <Route path="files" element={<ValidationPage />} />
               </Route>
+              <Route path={`files/${token}`} element={<ValidationPage />} />
               <Route path="/" element={<Navigate replace to="/login" />} />
             </Routes>
           </HashRouter>
