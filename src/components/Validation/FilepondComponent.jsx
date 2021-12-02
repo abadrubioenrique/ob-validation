@@ -10,6 +10,10 @@ import { getUserInfo } from '../../store/slices/user';
 
 
 export const FilepondComponent = (props) => {
+     window.onbeforeunload = function() {
+        localStorage.removeItem('USER_INFO');
+        localStorage.removeItem('TOKEN_KEY');
+     }
     const API_URL = 'https://obvalid4.herokuapp.com';
     const [cargandoUsuario, setCargandoUsuario] = useState(true);
 
