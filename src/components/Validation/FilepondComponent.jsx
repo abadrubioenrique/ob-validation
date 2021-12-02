@@ -23,12 +23,14 @@ export const FilepondComponent = (props) => {
 
     useEffect(() => {
         async function cargarUsuario() {
-            if (authToken === null) {
+            if (authToken === null ) {
                 setCargandoUsuario(false);
                 return;
             }
             try {
-                dispatch(getUserInfo(authToken))
+                if(userData === null) {
+                    dispatch(getUserInfo(authToken))
+                }
                 localStorage.setItem('TOKEN_KEY',authToken);
                 setCargandoUsuario(false);
             } catch (error) {
@@ -37,7 +39,7 @@ export const FilepondComponent = (props) => {
         }
         cargarUsuario();
 
-    }, [authToken]);
+    }, [authToken, dispatch, userData]);
     return (
         <div >
             <h1>Validación del Usuario</h1>
