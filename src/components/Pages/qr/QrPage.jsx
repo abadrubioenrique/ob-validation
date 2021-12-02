@@ -15,7 +15,7 @@ const QrPage = () => {
                 <QRCode value={filesUrl} />
             </div>
             <NavLink className={({ isActive }) => 'nav-item nav-link text-dark' + (isActive ? 'active text-light ' : '')} to={`/files/${token}`}>
-                            Subir imágenes</NavLink>
+                            <i class="bi bi-cloud-arrow-up-fill"></i>Subir imágenes manualmente</NavLink>
 
         </div>
     )
