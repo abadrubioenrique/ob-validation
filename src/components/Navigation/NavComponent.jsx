@@ -24,7 +24,7 @@ const NavComponent = ({ isLoggedIn }) => {
                 <nav className="navbar navbar-expand-lg navbar-light bg-primary bg-gradient">
                     <div className="container-fluid ">
                         <div className="background-layer">
-                            <h2 className="logo validation">
+                            <h2 className="logo">
                                 Check
                                 <span>Docs</span>
                             </h2>
