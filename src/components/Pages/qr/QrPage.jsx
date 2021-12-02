@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import QRCode from "react-qr-code";
 import '../../Styles/qr.scss'
 const QrPage = () => {
-    const token = useSelector(state => state.auth.authToken)
+    const token = useSelector((state) => state.auth.authToken)
     const baseUrl = "https://ob-validation.vercel.app/#/files";
     const filesUrl = `${baseUrl}/${token}`;
     console.log(filesUrl);

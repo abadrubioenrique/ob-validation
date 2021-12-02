@@ -11,7 +11,6 @@ import { getUserInfo } from '../../store/slices/user';
 
 export const FilepondComponent = (props) => {
     const API_URL = 'https://obvalid4.herokuapp.com';
-    const [usuario, setUsuario] = useState(null);
     const [cargandoUsuario, setCargandoUsuario] = useState(true);
 
     // Nuevo
@@ -30,7 +29,7 @@ export const FilepondComponent = (props) => {
             }
             try {
                 dispatch(getUserInfo(authToken))
-                setUsuario(userData);
+                localStorage.setItem('TOKEN_KEY',authToken);
                 setCargandoUsuario(false);
             } catch (error) {
                 console.log("Error al recuperar sus daotos. Empieze el proceso de nuevo.")
@@ -38,13 +37,13 @@ export const FilepondComponent = (props) => {
         }
         cargarUsuario();
 
-    }, [authToken, dispatch, userData]);
+    }, [authToken]);
     return (
         <div >
             <h1>Validación del Usuario</h1>
 
 
-            {(usuario != null) && (usuario.validated) && (cargandoUsuario === false) ?
+            {(userData != null) && (userData.validated) && (cargandoUsuario === false) ?
 
                 (
                     <div>
@@ -86,7 +85,7 @@ export const FilepondComponent = (props) => {
                                                 data: formData,
                                                 headers: {
                                                     'content-type': 'multipart/form-data',
-                                                    'Authorization': `Basic ${authToken}`
+                                                    'Authorization': `Bearer ${authToken}`
                                                 },
                                                 //cancelToken: source.token,
                                                 onUploadProgress: (e) => {
@@ -140,7 +139,7 @@ export const FilepondComponent = (props) => {
                                                 data: formData,
                                                 headers: {
                                                     'content-type': 'multipart/form-data',
-                                                    'Authorization': `Basic ${authToken}`
+                                                    'Authorization': `Bearer ${authToken}`
                                                 },
                                                 //cancelToken: source.token,
                                                 onUploadProgress: (e) => {

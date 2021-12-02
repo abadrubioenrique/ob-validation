@@ -1,4 +1,4 @@
-import axios from 'axios';
+/* import axios from 'axios'; */
 
 const TOKEN_KEY = 'access_token';
 
@@ -6,14 +6,15 @@ export function setToken(token){
     localStorage.setItem(TOKEN_KEY,token);
 }
 
-export function getToken(){
-    return localStorage.getItem(TOKEN_KEY);
+export function splitToken(){
+    const authToken = window.location.pathname.split('/files/')[1];
+    return authToken;
 }
 
 export function deleteToken(){
     localStorage.removeItem(TOKEN_KEY);
 }
-
+/* 
 export function initAxiosInterceptors(){
     axios.interceptors.request.use(function(config){
         const token = getToken();
@@ -33,4 +34,4 @@ export function initAxiosInterceptors(){
             }
         }
     )
-}
+} */

@@ -36,7 +36,7 @@ export function Validationapp(){
               <Route path="/validation" element={<PrivateOutlet isLogged={isLoggedIn} />}>
                 <Route path="pass" element={<QrPage />} />
               </Route>
-              <Route path={`files/${token}`} element={<ValidationPage />} />
+              <Route path={`files/*`} element={<ValidationPage />} />
               <Route path="/" element={<Navigate replace to="/login" />} />
             </Routes>
           </HashRouter>
