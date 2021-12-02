@@ -32,9 +32,9 @@ export const FilepondComponent = (props) => {
                 return;
             }
             try {
-                if(userData === null) {
-                    dispatch(getUserInfo(authToken))
-                }
+                setTimeout(
+                    function(){dispatch(getUserInfo(authToken))}           
+                    , 1000);
                 localStorage.setItem('TOKEN_KEY',authToken);
                 setCargandoUsuario(false);
             } catch (error) {
