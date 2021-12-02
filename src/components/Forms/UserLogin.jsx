@@ -38,7 +38,10 @@ const UserLogin = () => {
         dispatch(login({ username, password }))
             .unwrap()
             .then(() => {
-                window.location.reload();
+                setTimeout(
+                    function(){ window.location.reload()}           
+                    , 1000);
+               
             })
             .catch((error) => {
                 setRequestError("Hubo un error, compruebe su email y contraseña.");
