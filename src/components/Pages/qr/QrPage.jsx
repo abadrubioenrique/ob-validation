@@ -7,7 +7,6 @@ const QrPage = () => {
     const token = useSelector((state) => state.auth.authToken)
     const baseUrl = "https://ob-validation.vercel.app/#/files";
     const filesUrl = `${baseUrl}/${token}`;
-    console.log(filesUrl);
     return (
         <div className="qr-page">
             <h1>Por favor, escanee el siguiente código QR con su smartphone.</h1>

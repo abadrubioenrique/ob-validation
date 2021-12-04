@@ -24,8 +24,6 @@ export function Validationapp(){
        
     }, [dispatch, isLoggedIn, token]);
     
-
-    console.log(`/key/${token}`)
       return (
         <HashRouter>
             <NavComponent isLoggedIn={isLoggedIn}/>

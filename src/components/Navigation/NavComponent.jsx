@@ -5,7 +5,6 @@ import { removeUserInfo } from '../../store/slices/user';
 
 import './navigation.scss';
 const NavComponent = ({ isLoggedIn }) => {
-    console.log(isLoggedIn);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     let userInfo = null;
