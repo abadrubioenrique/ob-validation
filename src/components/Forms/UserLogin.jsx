@@ -40,7 +40,7 @@ const UserLogin = () => {
             .then(() => {
                 setTimeout(
                     function(){ window.location.reload()}           
-                    , 1000);
+                    , 3000);
                
             })
             .catch((error) => {
