@@ -21,9 +21,7 @@ export const FilepondComponent = (props) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const userData  = useSelector((state) => state.user.userInfo);
-    console.log(userData)
     const authToken = location.pathname.split('/files/')[1];
-    console.log(authToken)
 
     useEffect(() => {
         async function cargarUsuario() {
@@ -176,7 +174,6 @@ export const FilepondComponent = (props) => {
                             />
                         </div>
                     </div>
-
                 )}
         </div>
 
